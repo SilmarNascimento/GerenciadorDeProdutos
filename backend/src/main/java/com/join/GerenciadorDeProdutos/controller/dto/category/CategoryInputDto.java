@@ -1,5 +1,7 @@
 package com.join.GerenciadorDeProdutos.controller.dto.category;
 
-public record CategoryInputDto() {
+public record CategoryInputDto(
+    String name
+) {
 
 }
