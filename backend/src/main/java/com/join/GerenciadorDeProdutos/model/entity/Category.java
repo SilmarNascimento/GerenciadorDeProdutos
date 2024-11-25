@@ -23,7 +23,7 @@ public class Category {
   @GeneratedValue(generator = "UUID")
   private UUID id;
 
-  private String nome;
+  private String name;
 
   @ManyToMany(mappedBy = "categories")
   @JsonIgnore
