@@ -11,4 +11,6 @@ public interface ProductServiceInterface {
   Product createProduct(Product product);
   Product updateProduct(UUID productId, Product product);
   void deleteProduct(UUID productId);
+  Product addCategories(UUID productId, List<UUID> categoriesId);
+  Product removeCategories(UUID productId, List<UUID> categoriesId);
 }
