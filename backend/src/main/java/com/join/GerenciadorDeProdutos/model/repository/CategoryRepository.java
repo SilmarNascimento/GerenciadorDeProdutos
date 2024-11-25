@@ -1,7 +1,6 @@
 package com.join.GerenciadorDeProdutos.model.repository;
 
 import com.join.GerenciadorDeProdutos.model.entity.Category;
-import com.join.GerenciadorDeProdutos.model.entity.Product;
 import java.util.Optional;
 import java.util.UUID;
 import lombok.NonNull;
