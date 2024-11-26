@@ -20,6 +20,9 @@ public class CategoryService implements CategoryServiceInterface {
   @Override
   public Page<Category> findAllCategories(int pageNumber, int pageSize, String query) {
     Pageable pageable = PageRequest.of(pageNumber, pageSize);
+    if (query == null || query.isBlank()) {
+      return categoryRepository.findAllOrderByName(pageable, null);
+    }
     return categoryRepository.findAllOrderByName(pageable, query.toLowerCase());
   }
 
@@ -52,7 +55,10 @@ public class CategoryService implements CategoryServiceInterface {
   }
 
   @Override
-  public void deleteCategory(UUID categoryId) {
+  public void deleteCategoryById(UUID categoryId) {
+    categoryRepository.findById(categoryId)
+        .orElseThrow(() -> new NotFoundException("Categoria não encontrada!"));
+
     categoryRepository.deleteById(categoryId);
   }
 }

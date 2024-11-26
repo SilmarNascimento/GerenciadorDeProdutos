@@ -27,6 +27,9 @@ public class ProductService implements ProductServiceInterface {
   @Override
   public Page<Product> findAllProducts(int pageNumber, int pageSize, String query) {
     Pageable pageable = PageRequest.of(pageNumber, pageSize);
+    if (query == null || query.isBlank()) {
+      return productRepository.findAllOrderByName(pageable, null);
+    }
     return productRepository.findAllOrderByName(pageable, query.toLowerCase());
   }
 
@@ -49,7 +52,7 @@ public class ProductService implements ProductServiceInterface {
   }
 
   @Override
-  public Product updateProduct(UUID productId, Product product) {
+  public Product updateProductById(UUID productId, Product product) {
     Product productFound = productRepository.findById(productId)
         .orElseThrow(() -> new NotFoundException("Produto não encontrado!"));
 
@@ -61,7 +64,10 @@ public class ProductService implements ProductServiceInterface {
   }
 
   @Override
-  public void deleteProduct(UUID productId) {
+  public void deleteProductById(UUID productId) {
+    productRepository.findById(productId)
+        .orElseThrow(() -> new NotFoundException("Produto não encontrado!"));
+
     productRepository.deleteById(productId);
   }
 

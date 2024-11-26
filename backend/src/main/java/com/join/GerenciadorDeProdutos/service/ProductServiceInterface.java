@@ -9,8 +9,8 @@ public interface ProductServiceInterface {
   Page<Product> findAllProducts(int pageNumber, int pageSize, String query);
   Product findProductById(UUID productId);
   Product createProduct(Product product);
-  Product updateProduct(UUID productId, Product product);
-  void deleteProduct(UUID productId);
+  Product updateProductById(UUID productId, Product product);
+  void deleteProductById(UUID productId);
   Product addCategories(UUID productId, List<UUID> categoriesId);
   Product removeCategories(UUID productId, List<UUID> categoriesId);
 }

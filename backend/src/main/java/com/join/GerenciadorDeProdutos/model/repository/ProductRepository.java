@@ -10,7 +10,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface ProductRepository extends JpaRepository<Product, UUID> {
-  @Query("SELECT subject FROM Subject subject WHERE (:query IS NULL OR subject.name LIKE %:query%) ORDER BY subject.name ASC")
+  @Query("SELECT product FROM Product product WHERE " +
+      "(:query IS NULL OR product.name LIKE %:query%) " +
+      "ORDER BY product.name ASC")
   Page<Product> findAllOrderByName(@NonNull Pageable pageable, String query);
 
   Optional<Product> findByName(String name);

@@ -9,7 +9,10 @@ public record CategoryOutputDto(
     String name
 ) {
   public static CategoryOutputDto parseDto(Category category) {
-    return new CategoryOutputDto(category.getId(), category.getName());
+    return new CategoryOutputDto(
+        category.getId(),
+        category.getName()
+    );
   }
 
   public static List<CategoryOutputDto>  parseDto(List<Category> categories) {

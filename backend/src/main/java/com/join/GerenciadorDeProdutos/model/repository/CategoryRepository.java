@@ -10,7 +10,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface CategoryRepository extends JpaRepository<Category, UUID> {
-  @Query("SELECT subject FROM Subject subject WHERE (:query IS NULL OR subject.name LIKE %:query%) ORDER BY subject.name ASC")
+  @Query("SELECT category FROM Category category " +
+      "WHERE (:query IS NULL OR category.name LIKE %:query%) " +
+      "ORDER BY category.name ASC")
   Page<Category> findAllOrderByName(@NonNull Pageable pageable, String query);
 
   Optional<Category> findByName(String name);
