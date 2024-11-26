@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/product")
+@RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
 public class ProductController {
   private final ProductServiceInterface productService;
@@ -53,7 +53,10 @@ public class ProductController {
 
   @PostMapping
   public ResponseEntity<ProductOutputDto> createProduct(@RequestBody ProductInputDto productInputDto) {
-    Product productCreated = productService.createProduct(Product.parseProduct(productInputDto));
+    Product productCreated = productService.createProduct(
+        Product.parseProduct(productInputDto),
+        productInputDto.categoryIdList()
+    );
     return ResponseEntity
         .status(HttpStatus.CREATED)
         .body(ProductOutputDto.parseDto(productCreated));
@@ -66,7 +69,8 @@ public class ProductController {
   ) {
     Product updatedProduct = productService.updateProductById(
         productId,
-        Product.parseProduct(productInputDto)
+        Product.parseProduct(productInputDto),
+        productInputDto.categoryIdList()
     );
 
     return ResponseEntity

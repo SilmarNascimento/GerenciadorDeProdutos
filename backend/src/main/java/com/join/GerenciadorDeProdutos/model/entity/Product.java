@@ -2,6 +2,7 @@ package com.join.GerenciadorDeProdutos.model.entity;
 
 import com.join.GerenciadorDeProdutos.controller.dto.category.CategoryInputDto;
 import com.join.GerenciadorDeProdutos.controller.dto.product.ProductInputDto;
+import com.join.GerenciadorDeProdutos.exception.InvalidArgumentException;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -46,7 +47,15 @@ public class Product {
         .name(inputDto.name())
         .description(inputDto.description())
         .price(inputDto.price())
-        .categories(inputDto.categories())
         .build();
+  }
+
+  public void validate() {
+    if (this.name == null || this.name.isBlank()) {
+      throw new InvalidArgumentException("Nome do produto não pode ser nulo ou vazio");
+    }
+   if (this.price == null || this.price < 0) {
+      throw new InvalidArgumentException("Preço do produto não pode ser nulo ou negativo");
+   }
   }
 }

@@ -40,25 +40,41 @@ public class ProductService implements ProductServiceInterface {
   }
 
   @Override
-  public Product createProduct(Product product) {
+  public Product createProduct(Product product, List<UUID> categoryIdList) {
     productRepository.findByName(product.getName().toLowerCase())
         .ifPresent(productFound -> {
           throw new AlreadyExistsException("Produto já cadastrado!");
         });
 
-    product.setName(product.getName().toLowerCase());
+    product.validate();
+
+    Product productToBeCreated = Product.builder()
+        .name(product.getName().toLowerCase())
+        .description(product.getDescription())
+        .price(product.getPrice())
+        .build();
+
+    if (categoryIdList != null && !categoryIdList.isEmpty()) {
+      List<Category> categoriesToAdd = categoryRepository.findAllById(categoryIdList);
+      productToBeCreated.setCategories(categoriesToAdd);
+    }
 
     return productRepository.save(product);
   }
 
   @Override
-  public Product updateProductById(UUID productId, Product product) {
+  public Product updateProductById(UUID productId, Product product, List<UUID> categoryIdList) {
     Product productFound = productRepository.findById(productId)
         .orElseThrow(() -> new NotFoundException("Produto não encontrado!"));
+
+    product.validate();
 
     productFound.setName(product.getName().toLowerCase());
     productFound.setDescription(product.getDescription().toLowerCase());
     productFound.setPrice(product.getPrice());
+
+    List<Category> categoriesToAdd = categoryRepository.findAllById(categoryIdList);
+    productFound.setCategories(categoriesToAdd);
 
     return productRepository.save(productFound);
   }
