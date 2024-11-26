@@ -39,6 +39,8 @@ public class CategoryService implements CategoryServiceInterface {
           throw new AlreadyExistsException("Categoria já cadastrada!");
         });
 
+    category.validate();
+
     category.setName(category.getName().toLowerCase());
 
     return categoryRepository.save(category);
@@ -48,6 +50,8 @@ public class CategoryService implements CategoryServiceInterface {
   public Category updateCategoryById(UUID categoryId, Category category) {
     Category categoryFound = categoryRepository.findById(categoryId)
         .orElseThrow(() -> new NotFoundException("Categoria não encontrada!"));
+
+    category.validate();
 
     categoryFound.setName(category.getName().toLowerCase());
 

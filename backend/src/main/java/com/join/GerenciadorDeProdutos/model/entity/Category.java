@@ -2,6 +2,7 @@ package com.join.GerenciadorDeProdutos.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.join.GerenciadorDeProdutos.controller.dto.category.CategoryInputDto;
+import com.join.GerenciadorDeProdutos.exception.InvalidArgumentException;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -44,5 +45,11 @@ public class Category {
     return Category.builder()
         .name(inputDto.name())
         .build();
+  }
+
+  public void validate() {
+    if (this.name == null || this.name.isBlank()) {
+      throw new InvalidArgumentException("Nome da categoria não pode ser nulo ou vazio");
+    }
   }
 }
