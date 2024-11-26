@@ -49,13 +49,4 @@ public class Product {
         .price(inputDto.price())
         .build();
   }
-
-  public void validate() {
-    if (this.name == null || this.name.isBlank()) {
-      throw new InvalidArgumentException("Nome do produto não pode ser nulo ou vazio");
-    }
-   if (this.price == null || this.price < 0) {
-      throw new InvalidArgumentException("Preço do produto não pode ser nulo ou negativo");
-   }
-  }
 }

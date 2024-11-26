@@ -1,6 +1,7 @@
 package com.join.GerenciadorDeProdutos.service.implementation;
 
 import com.join.GerenciadorDeProdutos.exception.AlreadyExistsException;
+import com.join.GerenciadorDeProdutos.exception.InvalidArgumentException;
 import com.join.GerenciadorDeProdutos.exception.NotFoundException;
 import com.join.GerenciadorDeProdutos.model.entity.Category;
 import com.join.GerenciadorDeProdutos.model.repository.CategoryRepository;
@@ -39,7 +40,7 @@ public class CategoryService implements CategoryServiceInterface {
           throw new AlreadyExistsException("Categoria já cadastrada!");
         });
 
-    category.validate();
+    validateInput(category);
 
     category.setName(category.getName().toLowerCase());
 
@@ -51,7 +52,7 @@ public class CategoryService implements CategoryServiceInterface {
     Category categoryFound = categoryRepository.findById(categoryId)
         .orElseThrow(() -> new NotFoundException("Categoria não encontrada!"));
 
-    category.validate();
+    validateInput(category);
 
     categoryFound.setName(category.getName().toLowerCase());
 
@@ -64,5 +65,11 @@ public class CategoryService implements CategoryServiceInterface {
         .orElseThrow(() -> new NotFoundException("Categoria não encontrada!"));
 
     categoryRepository.deleteById(categoryId);
+  }
+
+  private static void validateInput(Category category) {
+    if (category.getName() == null || category.getName().isBlank()) {
+      throw new InvalidArgumentException("Nome da categoria não pode ser nulo ou vazio!");
+    }
   }
 }

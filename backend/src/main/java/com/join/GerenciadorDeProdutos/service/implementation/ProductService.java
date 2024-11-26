@@ -1,16 +1,14 @@
 package com.join.GerenciadorDeProdutos.service.implementation;
 
 import com.join.GerenciadorDeProdutos.exception.AlreadyExistsException;
+import com.join.GerenciadorDeProdutos.exception.InvalidArgumentException;
 import com.join.GerenciadorDeProdutos.exception.NotFoundException;
 import com.join.GerenciadorDeProdutos.model.entity.Category;
 import com.join.GerenciadorDeProdutos.model.entity.Product;
 import com.join.GerenciadorDeProdutos.model.repository.CategoryRepository;
 import com.join.GerenciadorDeProdutos.model.repository.ProductRepository;
 import com.join.GerenciadorDeProdutos.service.ProductServiceInterface;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -46,7 +44,7 @@ public class ProductService implements ProductServiceInterface {
           throw new AlreadyExistsException("Produto já cadastrado!");
         });
 
-    product.validate();
+    validateInput(product);
 
     Product productToBeCreated = Product.builder()
         .name(product.getName().toLowerCase())
@@ -67,7 +65,7 @@ public class ProductService implements ProductServiceInterface {
     Product productFound = productRepository.findById(productId)
         .orElseThrow(() -> new NotFoundException("Produto não encontrado!"));
 
-    product.validate();
+    validateInput(product);
 
     productFound.setName(product.getName().toLowerCase());
     productFound.setDescription(product.getDescription());
@@ -87,30 +85,12 @@ public class ProductService implements ProductServiceInterface {
     productRepository.deleteById(productId);
   }
 
-  @Override
-  public Product addCategories(UUID productId, List<UUID> categoriesId) {
-    Product productFound = productRepository.findById(productId)
-        .orElseThrow(() -> new NotFoundException("Produto não encontrado!"));
-
-    List<Category> categoryListToAdd = categoryRepository.findAllById(categoriesId);
-    if (categoryListToAdd.isEmpty()) {
-      throw new NotFoundException("Nenhuma categoria encontrada com os IDs fornecidos!");
+  private static void validateInput(Product product) {
+    if (product.getName() == null || product.getName().isBlank()) {
+      throw new InvalidArgumentException("Nome do produto não pode ser nulo ou vazio");
     }
-
-    Set<Category> previousCategorySet = new HashSet<>(productFound.getCategories());
-    previousCategorySet.addAll(categoryListToAdd);
-    productFound.setCategories(new ArrayList<>(previousCategorySet));
-
-    return productRepository.save(productFound);
-  }
-
-  @Override
-  public Product removeCategories(UUID productId, List<UUID> categoriesId) {
-    Product productFound = productRepository.findById(productId)
-        .orElseThrow(() -> new NotFoundException("Produto não encontrado!"));
-
-    productFound.getCategories().removeIf(category -> categoriesId.contains(category.getId()));
-
-    return productRepository.save(productFound);
+    if (product.getPrice() == null || product.getPrice() < 0) {
+      throw new InvalidArgumentException("Preço do produto não pode ser nulo ou negativo");
+    }
   }
 }
