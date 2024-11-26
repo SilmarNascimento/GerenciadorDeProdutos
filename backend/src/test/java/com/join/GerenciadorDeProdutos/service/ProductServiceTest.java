@@ -14,6 +14,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 
 import com.join.GerenciadorDeProdutos.exception.AlreadyExistsException;
+import com.join.GerenciadorDeProdutos.exception.InvalidArgumentException;
 import com.join.GerenciadorDeProdutos.exception.NotFoundException;
 import com.join.GerenciadorDeProdutos.model.entity.Category;
 import com.join.GerenciadorDeProdutos.model.entity.Product;
@@ -122,12 +123,12 @@ public class ProductServiceTest {
     assertTrue(productsName.contains(mockProduct02.getName()));
 
     Mockito
-        .verify(productRepository)
+        .verify(productRepository, Mockito.times(1))
         .findAllOrderByName(any(Pageable.class), eq(null));
   }
 
   @Test
-  @DisplayName("Verifica se é retornado uma lista de todas as entidades Product")
+  @DisplayName("Verifica se é retornado uma lista de todas as entidades Product por uma query")
   public void findAllProductsNonNullQueryTest() {
     int pageNumber = 0;
     int pageSize = 2;
@@ -183,7 +184,7 @@ public class ProductServiceTest {
 
   @Test
   @DisplayName("Verifica se ocorre o disparo de uma exceção caso não se encontre uma entidade Product por seu Id")
-  public void findSubjectByIdTestError() {
+  public void findProductByIdTestError() {
     Mockito
         .when(productRepository.findById(any()))
         .thenReturn(Optional.empty());
@@ -253,7 +254,7 @@ public class ProductServiceTest {
 
   @Test
   @DisplayName("Verifica se é disparado uma exceção ao tentar criar uma a entidade Product já existente")
-  public void createProductTestError() {
+  public void createProductAlreadyExistsTestError() {
     Mockito
         .when(productRepository.findByName(mockProduct01.getName().toLowerCase()))
         .thenReturn(Optional.of(mockProduct01));
@@ -268,8 +269,29 @@ public class ProductServiceTest {
   }
 
   @Test
+  @DisplayName("Verifica se é disparado uma exceção ao tentar criar uma a entidade Product com argumentos inválidos")
+  public void createProductInvalidArgumentsTestError() {
+    Product invalidProduct = Product
+        .builder()
+        .name("")
+        .build();
+
+    Mockito
+        .when(productRepository.findByName(any(String.class)))
+        .thenReturn(Optional.empty());
+
+    assertThrows(InvalidArgumentException.class, () -> {
+      productService.createProduct(invalidProduct, new ArrayList<>());
+    });
+
+    Mockito
+        .verify(productRepository, Mockito.times(1))
+        .findByName(any(String.class));
+  }
+
+  @Test
   @DisplayName("Verifica se é atualizado a entidade Product com sucesso")
-  public void updateProductByIdSuccessTest() {
+  public void updateProductByIdTest() {
     List<UUID> categoryIdList = new ArrayList<>();
 
     Mockito
@@ -304,7 +326,7 @@ public class ProductServiceTest {
   }
 
   @Test
-  @DisplayName("Verifica se lança exceção quando o produto não é encontrado para atualização")
+  @DisplayName("Verifica se lança exceção quando o Product não é encontrado para atualização")
   public void updateProductByIdNotFoundTest() {
     Mockito
         .when(productRepository.findById(mockProductId01))
@@ -320,8 +342,29 @@ public class ProductServiceTest {
   }
 
   @Test
+  @DisplayName("Verifica se é disparado uma exceção ao tentar atualizar uma a entidade Product com argumentos inválidos")
+  public void updateProductByIdInvalidArgumentsTest() {
+    Product invalidProduct = Product
+        .builder()
+        .name("")
+        .build();
+
+    Mockito
+        .when(productRepository.findById(mockProductId01))
+        .thenReturn(Optional.of(mockProduct01));
+
+    assertThrows(InvalidArgumentException.class, () -> {
+      productService.updateProductById(mockProductId01, invalidProduct, new ArrayList<>());
+    });
+
+    Mockito
+        .verify(productRepository, Mockito.times(1))
+        .findById(mockProductId01);
+  }
+
+  @Test
   @DisplayName("Verifica se exclui a entidade Product com sucesso")
-  public void deleteProductByIdSuccessTest() {
+  public void deleteProductByIdTest() {
     Mockito
         .when(productRepository.findById(mockProductId01))
         .thenReturn(Optional.of(mockProduct01));
@@ -341,7 +384,7 @@ public class ProductServiceTest {
   }
 
   @Test
-  @DisplayName("Verifica se lança exceção quando o produto não é encontrado para exclusão")
+  @DisplayName("Verifica se lança exceção quando o Product não é encontrado para exclusão")
   public void deleteProductByIdNotFoundTest() {
     Mockito
         .when(productRepository.findById(mockProductId01))
