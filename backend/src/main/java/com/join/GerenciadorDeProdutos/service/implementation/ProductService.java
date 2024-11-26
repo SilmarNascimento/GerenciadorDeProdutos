@@ -59,7 +59,7 @@ public class ProductService implements ProductServiceInterface {
       productToBeCreated.setCategories(categoriesToAdd);
     }
 
-    return productRepository.save(product);
+    return productRepository.save(productToBeCreated);
   }
 
   @Override
@@ -70,7 +70,7 @@ public class ProductService implements ProductServiceInterface {
     product.validate();
 
     productFound.setName(product.getName().toLowerCase());
-    productFound.setDescription(product.getDescription().toLowerCase());
+    productFound.setDescription(product.getDescription());
     productFound.setPrice(product.getPrice());
 
     List<Category> categoriesToAdd = categoryRepository.findAllById(categoryIdList);
