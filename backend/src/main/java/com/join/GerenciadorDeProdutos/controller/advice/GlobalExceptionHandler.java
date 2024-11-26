@@ -1,6 +1,7 @@
 package com.join.GerenciadorDeProdutos.controller.advice;
 
 import com.join.GerenciadorDeProdutos.exception.AlreadyExistsException;
+import com.join.GerenciadorDeProdutos.exception.InvalidArgumentException;
 import com.join.GerenciadorDeProdutos.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,13 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler(AlreadyExistsException.class)
   public ResponseEntity<String> handleAlreadyExistsException(AlreadyExistsException exception) {
+    return ResponseEntity
+        .status(HttpStatus.BAD_REQUEST)
+        .body(exception.getMessage());
+  }
+
+  @ExceptionHandler(InvalidArgumentException.class)
+  public ResponseEntity<String> handleInvalidArgumentException(InvalidArgumentException exception) {
     return ResponseEntity
         .status(HttpStatus.BAD_REQUEST)
         .body(exception.getMessage());

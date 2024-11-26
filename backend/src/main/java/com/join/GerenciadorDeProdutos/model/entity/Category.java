@@ -49,7 +49,7 @@ public class Category {
 
   public void validate() {
     if (this.name == null || this.name.isBlank()) {
-      throw new InvalidArgumentException("Nome da categoria não pode ser nulo ou vazio");
+      throw new InvalidArgumentException("Nome da categoria não pode ser nulo ou vazio!");
     }
   }
 }
