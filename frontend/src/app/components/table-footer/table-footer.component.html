@@ -1,1 +1,20 @@
-<p>table-footer works!</p>
+<div class="footer">
+  <div class="left">
+    Exibindo {{ itemsPerPage }} de {{ totalItems }} itens
+  </div>
+  <div class="right">
+    Página {{ currentPage }} de {{ totalPages }}
+    <div class="nav-buttons">
+      <button (click)="goToFirstPage()" [disabled]="currentPage === 1">&lt;&lt;</button>
+      <button (click)="goToPrevPage()" [disabled]="currentPage === 1">&lt;</button>
+      <button (click)="goToNextPage()" [disabled]="currentPage === totalPages">&gt;</button>
+      <button (click)="goToLastPage()" [disabled]="currentPage === totalPages">&gt;&gt;</button>
+    </div>
+    <select [(ngModel)]="itemsPerPage" (change)="onItemsPerPageChange($event)">
+      @for (option of itemsPerPageOptions; track option) {
+        <option [value]="option">{{ option }}</option>
+      }
+    </select>
+  </div>
+</div>
+

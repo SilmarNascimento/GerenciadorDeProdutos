@@ -7,7 +7,7 @@ import { CategoriesListComponent } from './pages/categories/categories-list/cate
 import { CategoriesCreateComponent } from './pages/categories/categories-create/categories-create.component';
 import { CategoriesEditComponent } from './pages/categories/categories-edit/categories-edit.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', redirectTo: '/products', pathMatch: 'full' },
   { path: 'products', component: ProductsListComponent },
   { path: 'products/create', component: ProductsCreateComponent },

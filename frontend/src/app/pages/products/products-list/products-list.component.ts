@@ -5,6 +5,7 @@ import { TableFooterComponent } from '../../../components/table-footer/table-foo
 import { Product } from '../../../models/product.model';
 import { ProductService } from '../../../services/product.service';
 import { PaginatedInputDto } from '../../../models/paginated-input.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products-list',
@@ -18,7 +19,7 @@ export class ProductsListComponent implements OnInit {
   currentPage: number = 1;
   pageSize: number = 10;
 
-  constructor(private productService: ProductService) { }
+  constructor(private router: Router, private productService: ProductService) { }
 
   ngOnInit(): void {
     this.loadProducts(this.currentPage, this.pageSize);
@@ -30,6 +31,10 @@ export class ProductsListComponent implements OnInit {
       this.totalItems = response.totalItems;
       this.currentPage = response.currentPage;
     });
+  }
+
+  createProduct(): void {
+    this.router.navigate(['/products/create']);
   }
 
   changePage(page: number): void {

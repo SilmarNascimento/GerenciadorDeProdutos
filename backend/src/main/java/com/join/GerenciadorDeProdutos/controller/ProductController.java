@@ -1,7 +1,6 @@
 package com.join.GerenciadorDeProdutos.controller;
 
 import com.join.GerenciadorDeProdutos.controller.dto.PageOutputDto;
-import com.join.GerenciadorDeProdutos.controller.dto.category.CategoryOutputDto;
 import com.join.GerenciadorDeProdutos.controller.dto.product.ProductInputDto;
 import com.join.GerenciadorDeProdutos.controller.dto.product.ProductOutputDto;
 import com.join.GerenciadorDeProdutos.model.entity.Product;

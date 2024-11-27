@@ -9,7 +9,7 @@ import { PaginatedInputDto } from '../models/paginated-input.model';
 })
 export class ProductService {
 
-  private apiUrl = 'http://localhost:8080/products';
+  private apiUrl = 'http://localhost:8080/api/v1/products';
 
   constructor(private http: HttpClient) { }
 

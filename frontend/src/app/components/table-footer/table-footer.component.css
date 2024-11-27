@@ -1,0 +1,14 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+}
+.footer .left, .footer .right {
+  display: flex;
+  align-items: center;
+}
+.footer .right .nav-buttons button {
+  margin: 0 2px;
+}
