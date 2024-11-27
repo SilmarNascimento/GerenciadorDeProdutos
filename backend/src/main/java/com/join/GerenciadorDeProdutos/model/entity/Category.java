@@ -2,14 +2,13 @@ package com.join.GerenciadorDeProdutos.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.join.GerenciadorDeProdutos.controller.dto.category.CategoryInputDto;
-import com.join.GerenciadorDeProdutos.exception.InvalidArgumentException;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,10 +26,12 @@ public class Category {
   @GeneratedValue(generator = "UUID")
   private UUID id;
 
+  @Column(name = "name", nullable = false)
   private String name;
 
   @ManyToMany(mappedBy = "categories")
   @JsonIgnore
+  @Column(name = "products")
   private List<Product> products;
 
   @Override

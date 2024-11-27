@@ -33,10 +33,4 @@ public record ProductOutputDto(
         product.getCategories()
     );
   }
-
-  public static List<CategoryOutputDto>  parseDto(List<Category> categories) {
-    return categories.stream()
-        .map((Category category) -> new CategoryOutputDto(category.getId(), category.getName()))
-        .toList();
-  }
 }

@@ -1,8 +1,7 @@
 package com.join.GerenciadorDeProdutos.model.entity;
 
-import com.join.GerenciadorDeProdutos.controller.dto.category.CategoryInputDto;
 import com.join.GerenciadorDeProdutos.controller.dto.product.ProductInputDto;
-import com.join.GerenciadorDeProdutos.exception.InvalidArgumentException;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -28,10 +27,13 @@ public class Product {
   @GeneratedValue(generator = "UUID")
   private UUID id;
 
+  @Column(name = "name", nullable = false)
   private String name;
 
+  @Column(name = "description")
   private String description;
 
+  @Column(name = "price", nullable = false)
   private Double price;
 
   @ManyToMany
@@ -40,6 +42,7 @@ public class Product {
       joinColumns = @JoinColumn(name = "categories_id"),
       inverseJoinColumns = @JoinColumn(name = "product_id")
   )
+  @Column(name = "categories")
   private List<Category> categories;
 
   public static Product parseProduct(ProductInputDto inputDto) {

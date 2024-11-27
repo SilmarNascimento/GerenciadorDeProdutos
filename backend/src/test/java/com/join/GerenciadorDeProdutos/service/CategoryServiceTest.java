@@ -14,9 +14,7 @@ import com.join.GerenciadorDeProdutos.exception.AlreadyExistsException;
 import com.join.GerenciadorDeProdutos.exception.InvalidArgumentException;
 import com.join.GerenciadorDeProdutos.exception.NotFoundException;
 import com.join.GerenciadorDeProdutos.model.entity.Category;
-import com.join.GerenciadorDeProdutos.model.entity.Product;
 import com.join.GerenciadorDeProdutos.model.repository.CategoryRepository;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -46,14 +44,13 @@ public class CategoryServiceTest {
   private CategoryRepository categoryRepository;
 
   private UUID mockCategoryId01;
-  private UUID mockCategoryId02;
   private Category mockCategory01;
   private Category mockCategory02;
 
   @BeforeEach
   public void setUp() {
     mockCategoryId01 = UUID.randomUUID();
-    mockCategoryId02 = UUID.randomUUID();
+    UUID mockCategoryId02 = UUID.randomUUID();
 
     mockCategory01 = Category.builder()
         .id(mockCategoryId01)
