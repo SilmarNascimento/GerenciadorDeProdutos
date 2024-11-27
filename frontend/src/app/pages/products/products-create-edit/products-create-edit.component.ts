@@ -3,12 +3,12 @@ import { FormProductComponent } from '../../../components/form-product/form-prod
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-products-create',
+  selector: 'app-products-create-edit',
   imports: [FormProductComponent],
-  templateUrl: './products-create.component.html',
-  styleUrl: './products-create.component.css'
+  templateUrl: './products-create-edit.component.html',
+  styleUrl: './products-create-edit.component.css'
 })
-export class ProductsCreateComponent implements OnInit {
+export class ProductsCreateEditComponent implements OnInit {
   action!: 'create' | 'edit';
   productId: string | null = null;
 

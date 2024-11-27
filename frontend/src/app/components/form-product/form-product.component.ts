@@ -55,7 +55,15 @@ export class FormProductComponent implements OnInit {
 
   onSubmit(): void {
     if (this.action === 'edit' && this.productId) {
-      this.productService.updateProduct(this.productId, this.productForm.value).subscribe(() => {
+      const { name, description, price, categories } = this.productForm.value
+      const productFormOutput = {
+        name,
+        description,
+        price,
+        categoryIdList: categories
+      }
+
+      this.productService.updateProduct(this.productId, productFormOutput).subscribe(() => {
         this.router.navigate(['/products']);
       });
     } else {
