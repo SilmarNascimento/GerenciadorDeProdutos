@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
@@ -9,14 +9,24 @@ import { ProductService } from '../../services/product.service';
   templateUrl: './table-product.component.html',
   styleUrl: './table-product.component.css'
 })
-export class TableProductComponent {
+export class TableProductComponent implements OnChanges {
   @Input()
   products: Product[] = [];
 
   @Output()
   productDeleted = new EventEmitter<void>();
 
-  constructor(private router: Router, private productService: ProductService) {}
+  constructor(private router: Router, private productService: ProductService) { }
+
+  trackById(_index: number, product: Product): string| undefined {
+    return product.id;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['products']) {
+      console.log('Produtos recebidos no componente filho:', this.products);
+    }
+  }
 
   editProduct(productId: string | undefined): void {
     if (productId) {

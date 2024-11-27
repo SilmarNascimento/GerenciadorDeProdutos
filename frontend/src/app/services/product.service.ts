@@ -14,7 +14,7 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   getProducts(page: number, size: number): Observable<PaginatedInputDto<Product>> {
-    const params = { pageNumber: page.toString(), pageSize: size.toString() };
+    const params = { pageNumber: (page - 1).toString(), pageSize: size.toString() };
     return this.http.get<PaginatedInputDto<Product>>(this.apiUrl, { params });
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TableProductComponent } from "../../../components/table-product/table-product.component";
 import { NavbarComponent } from '../../../components/navbar/navbar.component';
 import { TableFooterComponent } from '../../../components/table-footer/table-footer.component';
@@ -19,19 +19,28 @@ export class ProductsListComponent implements OnInit {
   currentPage: number = 1;
   pageSize: number = 10;
 
-  constructor(private router: Router, private productService: ProductService) { }
+  constructor(
+    private router: Router,
+    private productService: ProductService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.loadProducts(this.currentPage, this.pageSize);
-    console.log(this.products);
   }
 
   loadProducts(page: number, size:number): void {
     this.productService.getProducts(page, size).subscribe({
       next: (response: PaginatedInputDto<Product>) => {
+        console.log("resposta da API: ", response);
+
         this.products = response.data;
         this.totalItems = response.totalItems;
-        this.currentPage = response.currentPage;
+        this.currentPage = response.currentPage + 1;
+
+        this.cdr.detectChanges();
+
+        console.log(this.products);
       },
       error: (err) => {
         console.error('Erro ao carregar produtos:', err);
