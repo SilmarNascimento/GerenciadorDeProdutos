@@ -30,7 +30,7 @@ export class CategoriesListComponent {
   }
 
   loadCategories(page: number, size:number): void {
-    this.categoryService.getProducts(page, size).subscribe({
+    this.categoryService.getCategories(page, size).subscribe({
       next: (response: PaginatedInputDto<Category>) => {
         console.log("resposta da API: ", response);
 

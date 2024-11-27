@@ -13,24 +13,24 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  getProducts(page: number, size: number): Observable<PaginatedInputDto<Category>> {
+  getCategories(page: number, size: number): Observable<PaginatedInputDto<Category>> {
     const params = { pageNumber: (page - 1).toString(), pageSize: size.toString() };
     return this.http.get<PaginatedInputDto<Category>>(this.apiUrl, { params });
   }
 
-  getProductById(id: string): Observable<Category> {
+  getCategoryById(id: string): Observable<Category> {
     return this.http.get<Category>(`${this.apiUrl}/${id}`);
   }
 
-  createProduct(category: Category): Observable<Category> {
+  createCategory(category: Category): Observable<Category> {
     return this.http.post<Category>(this.apiUrl, category);
   }
 
-  updateProduct(id: string, category: Category): Observable<Category> {
+  updateCategory(id: string, category: Category): Observable<Category> {
     return this.http.put<Category>(`${this.apiUrl}/${id}`, category);
   }
 
-  deleteProduct(id: string): Observable<void> {
+  deleteCategory(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

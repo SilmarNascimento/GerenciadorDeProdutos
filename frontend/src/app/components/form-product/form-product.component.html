@@ -1,0 +1,27 @@
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Nome</label>
+    <input id="name" formControlName="name" placeholder="Nome">
+  </div>
+  <div>
+    <label for="description">Descrição</label>
+    <textarea id="description" formControlName="description" placeholder="Descrição"></textarea>
+  </div>
+  <div>
+    <label for="price">Preço</label>
+    <input id="price" formControlName="price" placeholder="Preço" type="number">
+  </div>
+  <div>
+    <label for="categories">Categorias</label>
+    <select id="categories" formControlName="categories" multiple>
+      @for (category of categories; track category.id) {
+        <option [value]="category.id">{{ category.name }}</option>
+      }
+    </select>
+  </div>
+  <div>
+    <button type="submit">{{ action === 'edit' ? 'Atualizar' : 'Criar' }}</button>
+    <button type="button" (click)="onCancel()">Voltar</button>
+  </div>
+</form>
+

@@ -32,7 +32,7 @@ export class TableCategoryComponent implements OnChanges{
 
   deleteCategory(productId: string | undefined): void {
     if (productId) {
-      this.categoryService.deleteProduct(productId).subscribe(() => {
+      this.categoryService.deleteCategory(productId).subscribe(() => {
         this.productDeleted.emit();
       });
     }
