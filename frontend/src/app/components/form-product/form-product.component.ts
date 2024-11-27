@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Product } from '../../models/product.model';
 import { CategoryService } from '../../services/category.service';
 import { ProductService } from '../../services/product.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Category } from '../../models/category.model';
 
 @Component({
@@ -54,20 +54,20 @@ export class FormProductComponent implements OnInit {
   }
 
   onSubmit(): void {
+    const { name, description, price, categories } = this.productForm.value
+    const productFormOutput = {
+      name,
+      description,
+      price,
+      categoryIdList: categories
+    }
     if (this.action === 'edit' && this.productId) {
-      const { name, description, price, categories } = this.productForm.value
-      const productFormOutput = {
-        name,
-        description,
-        price,
-        categoryIdList: categories
-      }
 
       this.productService.updateProduct(this.productId, productFormOutput).subscribe(() => {
         this.router.navigate(['/products']);
       });
     } else {
-      this.productService.createProduct(this.productForm.value).subscribe(() => {
+      this.productService.createProduct(productFormOutput).subscribe(() => {
         this.router.navigate(['/products']);
       });
     }

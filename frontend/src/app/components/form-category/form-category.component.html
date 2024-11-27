@@ -1,1 +1,11 @@
-<p>form-category works!</p>
+<form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">
+      <input id="name" formControlName="name" placeholder="Nome">
+    </label>
+  </div>
+  <div>
+    <button type="submit">{{ action === 'edit' ? 'Atualizar' : 'Criar' }}</button>
+    <button type="button" (click)="onCancel()">Voltar</button>
+  </div>
+</form>

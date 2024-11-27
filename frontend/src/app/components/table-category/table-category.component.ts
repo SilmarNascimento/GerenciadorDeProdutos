@@ -26,7 +26,7 @@ export class TableCategoryComponent implements OnChanges{
 
   editCategory(productId: string | undefined): void {
     if (productId) {
-      this.router.navigate(['/products/edit', productId]);
+      this.router.navigate(['/categories/edit', productId]);
     }
   }
 
