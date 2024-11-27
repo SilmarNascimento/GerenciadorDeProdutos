@@ -20,6 +20,9 @@ export class TableFooterComponent {
   currentPage = 1;
 
   @Input()
+  pageItems = 1;
+
+  @Input()
   itemsPerPageOptions = [5, 10, 20];
 
   @Output()
@@ -32,12 +35,8 @@ export class TableFooterComponent {
     return Math.ceil(this.totalItems / this.itemsPerPage);
   }
 
-  get displayedItems(): number {
-    return Math.min(this.itemsPerPage, this.totalItems);
-  }
-
   get displayedTotal(): number {
-    return Math.min(this.totalItems, this.itemsPerPage);
+    return this.totalItems;
   }
 
   goToFirstPage() {

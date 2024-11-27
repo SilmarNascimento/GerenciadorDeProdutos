@@ -18,6 +18,7 @@ export class CategoriesListComponent {
   totalItems: number = 0;
   currentPage: number = 1;
   pageSize: number = 5;
+  pageItems: number = 0;
 
   constructor(
     private router: Router,
@@ -37,6 +38,7 @@ export class CategoriesListComponent {
         this.categories = response.data;
         this.totalItems = response.totalItems;
         this.currentPage = response.currentPage + 1;
+        this.pageItems = response.pageItems;
 
         this.cdr.detectChanges();
       },
