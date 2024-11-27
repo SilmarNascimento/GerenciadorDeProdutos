@@ -8,8 +8,8 @@
       <tr>
         <td>{{ category.name }}</td>
         <td>
-          <button (click)="editCategory(category.id)">Editar</button>
-          <button (click)="deleteCategory(category.id)">Deletar</button>
+          <button class="edit" (click)="editCategory(category.id)">Editar</button>
+          <button class="delete" (click)="deleteCategory(category.id)">Deletar</button>
         </td>
       </tr>
     }

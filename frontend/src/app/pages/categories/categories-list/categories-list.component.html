@@ -1,18 +1,23 @@
 <app-navbar></app-navbar>
+<main>
+  <h1>Categorias</h1>
+  <button (click)="createCategory()">Nova Categoria</button>
 
-<h1>pagina de listagem de categorias</h1>
-<button (click)="createCategory()">Nova Categoria</button>
-<app-table-category
-  [categories]="categories"
-  (categoryDeleted)="loadCategories(currentPage, pageSize)"
-></app-table-category>
-
-<app-table-footer
-  [totalItems]="totalItems"
-  [itemsPerPage]="pageSize"
-  [currentPage]="currentPage"
-  [pageItems]="pageItems"
-  [itemsPerPageOptions]="[5, 10, 20]"
-  (pageChanged)="onPageChange($event)"
-  (itemsPerPageChanged)="onItemsPerPageChange($event)"
-></app-table-footer>
+  @if (categories.length < 1) {
+    <h1 class="warning">Nenhuma categoria criada!</h1>
+  } @else {
+    <app-table-category
+      [categories]="categories"
+      (categoryDeleted)="loadCategories(currentPage, pageSize)"
+    ></app-table-category>
+    <app-table-footer
+      [totalItems]="totalItems"
+      [itemsPerPage]="pageSize"
+      [currentPage]="currentPage"
+      [pageItems]="pageItems"
+      [itemsPerPageOptions]="[5, 10, 20]"
+      (pageChanged)="onPageChange($event)"
+      (itemsPerPageChanged)="onItemsPerPageChange($event)"
+    ></app-table-footer>
+  }
+</main>
