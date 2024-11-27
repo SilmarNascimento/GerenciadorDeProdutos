@@ -23,21 +23,34 @@ export class ProductsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadProducts(this.currentPage, this.pageSize);
+    console.log(this.products);
   }
 
   loadProducts(page: number, size:number): void {
-    this.productService.getProducts(page, size).subscribe((response: PaginatedInputDto<Product>) => {
-      this.products = response.data;
-      this.totalItems = response.totalItems;
-      this.currentPage = response.currentPage;
+    this.productService.getProducts(page, size).subscribe({
+      next: (response: PaginatedInputDto<Product>) => {
+        this.products = response.data;
+        this.totalItems = response.totalItems;
+        this.currentPage = response.currentPage;
+      },
+      error: (err) => {
+        console.error('Erro ao carregar produtos:', err);
+      },
     });
+  }
+
+  onPageChange(newPage: number): void {
+    this.currentPage = newPage;
+    this.loadProducts(newPage, this.pageSize);
+  }
+
+  onItemsPerPageChange(newPageSize: number): void {
+    this.pageSize = newPageSize;
+    this.currentPage = 1;
+    this.loadProducts(this.currentPage, this.pageSize);
   }
 
   createProduct(): void {
     this.router.navigate(['/products/create']);
-  }
-
-  changePage(page: number): void {
-    this.loadProducts(page, this.pageSize);
   }
 }

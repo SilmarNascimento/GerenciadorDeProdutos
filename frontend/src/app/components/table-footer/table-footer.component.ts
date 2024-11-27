@@ -32,6 +32,14 @@ export class TableFooterComponent {
     return Math.ceil(this.totalItems / this.itemsPerPage);
   }
 
+  get displayedItems(): number {
+    return Math.min(this.itemsPerPage, this.totalItems);
+  }
+
+  get displayedTotal(): number {
+    return Math.min(this.totalItems, this.itemsPerPage);
+  }
+
   goToFirstPage() {
     this.currentPage = 1;
     this.pageChanged.emit(this.currentPage);

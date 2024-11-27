@@ -15,7 +15,7 @@ public record ProductOutputDto(
     List<Category> categories
 ) {
   public static ProductOutputDto parseDto(Product product) {
-    if (product.getCategories().isEmpty()) {
+    if (product.getCategories() == null) {
       return new ProductOutputDto(
           product.getId(),
           product.getName(),

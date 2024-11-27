@@ -1,9 +1,19 @@
 <app-navbar></app-navbar>
-<div>
-  <button (click)="createProduct()">Novo Produto</button>
-  <app-table-product
-    [products]="products"
-  ></app-table-product>
-</div>
-<app-table-footer></app-table-footer>
+
+<h1>Pagina de listagem de produtos</h1>
+
+<app-table-product
+  [products]="products"
+  (productDeleted)="loadProducts(currentPage, pageSize)"
+></app-table-product>
+
+<app-table-footer
+  [totalItems]="totalItems"
+  [itemsPerPage]="pageSize"
+  [currentPage]="currentPage"
+  [itemsPerPageOptions]="[5, 10, 20]"
+  (pageChanged)="onPageChange($event)"
+  (itemsPerPageChanged)="onItemsPerPageChange($event)"
+></app-table-footer>
+
 
