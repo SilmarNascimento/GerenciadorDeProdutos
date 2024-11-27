@@ -1,11 +1,11 @@
 <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
-  <div>
+  <div class="fields">
     <label for="name">
       <input id="name" formControlName="name" placeholder="Nome">
     </label>
   </div>
-  <div>
-    <button type="submit">{{ action === 'edit' ? 'Atualizar' : 'Criar' }}</button>
-    <button type="button" (click)="onCancel()">Voltar</button>
+  <div class="buttons">
+    <button class="submit" type="submit">{{ action === 'edit' ? 'Atualizar' : 'Criar' }}</button>
+    <button class="cancel" type="button" (click)="onCancel()">Voltar</button>
   </div>
 </form>
