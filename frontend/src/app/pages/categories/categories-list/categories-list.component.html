@@ -1,3 +1,17 @@
 <app-navbar></app-navbar>
+
 <h1>pagina de listagem de categorias</h1>
-<app-table-footer></app-table-footer>
+<button (click)="createCategory()">Nova Categoria</button>
+<app-table-category
+  [categories]="categories"
+  (categoryDeleted)="loadCategories(currentPage, pageSize)"
+></app-table-category>
+
+<app-table-footer
+  [totalItems]="totalItems"
+  [itemsPerPage]="pageSize"
+  [currentPage]="currentPage"
+  [itemsPerPageOptions]="[5, 10, 20]"
+  (pageChanged)="onPageChange($event)"
+  (itemsPerPageChanged)="onItemsPerPageChange($event)"
+></app-table-footer>

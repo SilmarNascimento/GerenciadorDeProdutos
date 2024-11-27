@@ -1,1 +1,17 @@
-<p>table-category works!</p>
+<div>
+  <table>
+    <tr>
+      <th>Nome</th>
+      <th></th>
+    </tr>
+    @for (category of categories; track category.id) {
+      <tr>
+        <td>{{ category.name }}</td>
+        <td>
+          <button (click)="editCategory(category.id)">Editar</button>
+          <button (click)="deleteCategory(category.id)">Deletar</button>
+        </td>
+      </tr>
+    }
+  </table>
+</div>

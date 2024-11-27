@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 
 <h1>Pagina de listagem de produtos</h1>
-
+<button (click)="createProduct()">Novo Produto</button>
 <app-table-product
   [products]="products"
   (productDeleted)="loadProducts(currentPage, pageSize)"

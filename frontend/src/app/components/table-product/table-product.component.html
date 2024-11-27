@@ -6,7 +6,7 @@
       <th>Preço</th>
       <th></th>
     </tr>
-    @for (product of products; track trackById) {
+    @for (product of products; track product.id) {
       <tr>
         <td>{{ product.name }}</td>
         <td>{{ product.description }}</td>

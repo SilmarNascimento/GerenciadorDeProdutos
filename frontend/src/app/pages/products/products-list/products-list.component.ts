@@ -17,7 +17,7 @@ export class ProductsListComponent implements OnInit {
   products: Product[] = [];
   totalItems: number = 0;
   currentPage: number = 1;
-  pageSize: number = 10;
+  pageSize: number = 5;
 
   constructor(
     private router: Router,
@@ -39,8 +39,6 @@ export class ProductsListComponent implements OnInit {
         this.currentPage = response.currentPage + 1;
 
         this.cdr.detectChanges();
-
-        console.log(this.products);
       },
       error: (err) => {
         console.error('Erro ao carregar produtos:', err);

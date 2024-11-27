@@ -18,10 +18,6 @@ export class TableProductComponent implements OnChanges {
 
   constructor(private router: Router, private productService: ProductService) { }
 
-  trackById(_index: number, product: Product): string| undefined {
-    return product.id;
-  }
-
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['products']) {
       console.log('Produtos recebidos no componente filho:', this.products);
