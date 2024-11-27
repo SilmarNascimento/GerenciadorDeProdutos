@@ -14,26 +14,26 @@ export class TableCategoryComponent implements OnChanges{
   categories: Category[] = [];
 
   @Output()
-  productDeleted = new EventEmitter<void>();
+  categoryDeleted = new EventEmitter<void>();
 
   constructor(private router: Router, private categoryService: CategoryService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['products']) {
-      console.log('Produtos recebidos no componente filho:', this.categories);
+    if (changes['categories']) {
+      console.log('Categorias recebidos no componente filho:', this.categories);
     }
   }
 
-  editCategory(productId: string | undefined): void {
-    if (productId) {
-      this.router.navigate(['/categories/edit', productId]);
+  editCategory(categoryId: string | undefined): void {
+    if (categoryId) {
+      this.router.navigate(['/categories/edit', categoryId]);
     }
   }
 
-  deleteCategory(productId: string | undefined): void {
-    if (productId) {
-      this.categoryService.deleteCategory(productId).subscribe(() => {
-        this.productDeleted.emit();
+  deleteCategory(categoryId: string | undefined): void {
+    if (categoryId) {
+      this.categoryService.deleteCategory(categoryId).subscribe(() => {
+        this.categoryDeleted.emit();
       });
     }
   }

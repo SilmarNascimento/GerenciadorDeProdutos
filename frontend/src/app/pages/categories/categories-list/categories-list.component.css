@@ -10,18 +10,20 @@ body {
 }
 
 main {
-  width: 90%; /* Ocupa 90% da tela */
-  max-width: 1200px; /* Limita a largura em telas maiores */
+  width: 90%;
+  max-width: 1200px;
   padding: 20px;
+  height: 80vh;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
   justify-self: center;
   margin-bottom: 20px;
+  overflow: auto;
+  position: relative;
 }
 
-/* Títulos */
 h1 {
   font-size: 48px;
   color: #333;
@@ -65,4 +67,12 @@ button {
   color: #333;
   margin-bottom: 40px;
   font-weight: bold;
+}
+
+app-table-footer {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  margin-top: 20px;
 }

@@ -4,16 +4,26 @@
       <th>Nome</th>
       <th>Descrição</th>
       <th>Preço</th>
+      <th>Categorias</th>
       <th></th>
     </tr>
     @for (product of products; track product.id) {
       <tr>
         <td>{{ product.name }}</td>
         <td>{{ product.description }}</td>
-        <td>{{ product.price }}</td>
+        <td>{{ formatPrice(product.price) }}</td>
         <td>
-          <button (click)="editProduct(product.id)">Editar</button>
-          <button (click)="deleteProduct(product.id)">Deletar</button>
+          @for (category of product.categories; track category) {
+            @if (product.categories?.length) {
+              <p>{{ category.name }}</p>
+            } @else {
+              <p>{{" - "}}</p>
+            }
+          }
+        </td>
+        <td>
+          <button class="edit" (click)="editProduct(product.id)">Editar</button>
+          <button class="delete" (click)="deleteProduct(product.id)">Deletar</button>
         </td>
       </tr>
     }

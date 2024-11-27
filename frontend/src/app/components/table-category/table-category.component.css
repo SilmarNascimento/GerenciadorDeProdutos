@@ -1,5 +1,5 @@
 table {
-  width: 80%;
+  width: 90%;
   border-collapse: collapse;
   border-spacing: 0;
   margin: 20px auto;
@@ -9,7 +9,6 @@ table {
   background: #fff;
 }
 
-/* Cabeçalho da tabela */
 table th {
   background-color: #f0f0f0;
   padding: 10px;
@@ -17,11 +16,12 @@ table th {
   font-weight: bold;
 }
 
-/* Linhas da tabela */
 table td, table th {
   text-align: center;
   padding: 12px 15px;
-  height: 50px; /* Altura fixa */
+  height: 40px;
+  font-family: 'Roboto', sans-serif;
+  font-size: large;
 }
 
 table tr:nth-child(even) {
@@ -32,12 +32,10 @@ table tr:nth-child(odd) {
   background-color: #fff;
 }
 
-/* Borda da tabela */
 table td, table th {
   border: 1px solid #ddd;
 }
 
-/* Botões */
 button {
   background: none;
   border: none;
@@ -47,24 +45,23 @@ button {
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-right: 15px;
 }
 
-/* Botão de edição */
-button .edit {
-  background-color: #ffeb3b; /* Amarelo claro */
+button.edit {
+  background-color: #ffeb3b;
   color: #333;
 }
 
-button .edit:hover {
+button.edit:hover {
   background-color: #fdd835;
 }
 
-/* Botão de deleção */
-button .delete {
-  background-color: #f44336; /* Vermelho claro */
+button.delete {
+  background-color: #f44336;
   color: #fff;
 }
 
-button .delete:hover {
+button.delete:hover {
   background-color: #e53935;
 }

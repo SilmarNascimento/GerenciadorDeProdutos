@@ -24,6 +24,13 @@ export class TableProductComponent implements OnChanges {
     }
   }
 
+  formatPrice(price: number): string {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    }).format(price);
+  }
+
   editProduct(productId: string | undefined): void {
     if (productId) {
       this.router.navigate(['/products/edit', productId]);
