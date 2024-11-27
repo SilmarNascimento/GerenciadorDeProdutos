@@ -1,0 +1,22 @@
+<div>
+  <button (click)="CreateProduct()">Novo Produto</button>
+  <table>
+    <tr>
+      <th>Nome</th>
+      <th>Descrição</th>
+      <th>Preço</th>
+      <th></th>
+    </tr>
+    @for (product of products; track $index) {
+      <tr>
+        <td>{{ product.name }}</td>
+        <td>{{ product.description }}</td>
+        <td>{{ product.price }}</td>
+        <td>
+          <button (click)="editProduct(product.id)">Editar</button>
+          <button (click)="deleteProduct(product.id)">Editar</button>
+        </td>
+      </tr>
+    }
+  </table>
+</div>
