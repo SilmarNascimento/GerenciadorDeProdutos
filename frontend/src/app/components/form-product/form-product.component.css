@@ -44,12 +44,12 @@ select {
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;          /* Remove a aparência padrão */
-  padding-right: 35px;       /* Espaço para a seta do dropdown */
+  appearance: none;
+  padding-right: 35px;
 }
 
 select::-ms-expand {
-  display: none;  /* Remover a seta no Internet Explorer */
+  display: none;
 }
 
 button {
