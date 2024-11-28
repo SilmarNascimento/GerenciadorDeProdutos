@@ -15,6 +15,7 @@ import com.join.GerenciadorDeProdutos.exception.InvalidArgumentException;
 import com.join.GerenciadorDeProdutos.exception.NotFoundException;
 import com.join.GerenciadorDeProdutos.model.entity.Category;
 import com.join.GerenciadorDeProdutos.model.repository.CategoryRepository;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -55,11 +56,13 @@ public class CategoryServiceTest {
     mockCategory01 = Category.builder()
         .id(mockCategoryId01)
         .name("Categoria a")
+        .products(new ArrayList<>())
         .build();
 
     mockCategory02 = Category.builder()
         .id(mockCategoryId02)
         .name("Categoria b")
+        .products(new ArrayList<>())
         .build();
   }
 

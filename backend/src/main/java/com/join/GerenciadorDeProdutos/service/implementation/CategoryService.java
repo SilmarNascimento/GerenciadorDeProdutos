@@ -4,7 +4,9 @@ import com.join.GerenciadorDeProdutos.exception.AlreadyExistsException;
 import com.join.GerenciadorDeProdutos.exception.InvalidArgumentException;
 import com.join.GerenciadorDeProdutos.exception.NotFoundException;
 import com.join.GerenciadorDeProdutos.model.entity.Category;
+import com.join.GerenciadorDeProdutos.model.entity.Product;
 import com.join.GerenciadorDeProdutos.model.repository.CategoryRepository;
+import com.join.GerenciadorDeProdutos.model.repository.ProductRepository;
 import com.join.GerenciadorDeProdutos.service.CategoryServiceInterface;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CategoryService implements CategoryServiceInterface {
   private final CategoryRepository categoryRepository;
+  private final ProductRepository productRepository;
 
   @Override
   public Page<Category> findAllCategories(int pageNumber, int pageSize, String query) {
@@ -61,8 +64,16 @@ public class CategoryService implements CategoryServiceInterface {
 
   @Override
   public void deleteCategoryById(UUID categoryId) {
-    categoryRepository.findById(categoryId)
+    Category categoryFound = categoryRepository.findById(categoryId)
         .orElseThrow(() -> new NotFoundException("Categoria não encontrada!"));
+
+    if (!categoryFound.getProducts().isEmpty()) {
+      categoryFound.removeCategoryFromProducts();
+
+      for (Product product : categoryFound.getProducts()) {
+        productRepository.save(product);
+      }
+    }
 
     categoryRepository.deleteById(categoryId);
   }

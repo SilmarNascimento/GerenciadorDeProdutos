@@ -48,4 +48,10 @@ public class Category {
         .name(inputDto.name())
         .build();
   }
+
+  public void removeCategoryFromProducts() {
+    for (Product product : products) {
+      product.getCategories().remove(this);
+    }
+  }
 }
