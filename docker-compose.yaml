@@ -1,0 +1,56 @@
+version: '3.9'
+
+services:
+  frontend:
+    container_name: app_frontend
+    build: ./frontend
+    ports:
+      - 4200:4200
+    working_dir: /app-frontend
+    volumes:
+    - ./frontend:/app
+    networks:
+      - app-network
+    healthcheck:
+      test: [ "CMD", "lsof", "-t", "-i:3030" ]
+      timeout: 10s
+      retries: 5
+
+  backend:
+    container_name: app_backend
+    build: ./backend
+    ports:
+      - 8080:8080
+    working_dir: /app-backend
+    command: dev
+    volumes:
+      - ./backend/src:/app-backend/src
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=jdbc:postgresql://db:5432/joindb
+      - DATABASE_USERNAME=join
+      - DATABASE_PASSWORD=1234
+    networks:
+      - app-network
+    healthcheck:
+      test: [ "CMD", "lsof", "-t", "-i:8080" ]
+      timeout: 10s
+      retries: 5
+
+  db:
+    image: postgres:16-alpine
+    hostname: postgres
+    container_name: postgres-db
+    ports:
+      - '5432:5432'
+    networks:
+      - app-network
+    environment:
+      POSTGRES_USER: join
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: joindb
+
+networks:
+  app-network:
+    driver: bridge
